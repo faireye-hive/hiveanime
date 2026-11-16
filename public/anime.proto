@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+message Anime {
+  int32 id = 1;
+  string t = 2;
+  int32 sc = 3;
+  int32 ep = 4;
+  
+  enum Type { TV=0; MOVIE=1; OVA=2; ONA=3; SPECIAL=4; UNKNOWN=5; }
+  Type tp = 5;
+  
+  enum Status { FINISHED=0; AIRING=1; NOT_YET=2; }
+  Status st = 6;
+
+  repeated int32 g = 7;
+  string sy = 8;
+  
+  int32 ifold = 9; 
+  int32 iid = 10;
+}

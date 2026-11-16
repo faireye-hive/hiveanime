@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101018">
+  <meta name="description" content="Descubra animes e acompanhe sua lista de assistir no Seek.">
+  <title>Seek — sua jornada pelos animes</title>
+  <link rel="preconnect" href="https://cdn.myanimelist.net">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('seek-theme')||'light'}catch{document.documentElement.dataset.theme='light'}</script>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="Seek início"><span class="brand-mark">S</span><span>seek<span class="brand-dot">.</span></span></a>
+      <div class="nav-label" data-i18n="menu">MENU</div>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="discover"><span class="nav-icon">⌕</span> <span data-i18n="discover">Descobrir</span></button>
+        <button class="nav-item" data-view="my-list"><span class="nav-icon">▤</span> <span data-i18n="myList">Minha lista</span> <span class="nav-count" id="navListCount">0</span></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="sidebar-note-icon">✦</div><p data-i18n="sidebarNote">Seu próximo anime favorito pode estar a um clique.</p><span data-i18n="seekCatalog">CATÁLOGO SEEK</span></div>
+      <button class="profile-chip" id="profileButton" type="button" aria-label="Entrar com Hive Keychain" aria-expanded="false"><div class="avatar" id="profileAvatar">S</div><div><strong id="profileName" data-i18n="myProfile">Meu perfil</strong><small id="profileDetail" data-i18n="thisDevice">Lista neste dispositivo</small></div><span class="profile-dots" id="profileChevron">⌄</span></button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-brand" data-view="discover"><span class="brand-mark">S</span> seek<span class="brand-dot">.</span></button>
+        <div class="breadcrumb"><span data-i18n="home">Início</span><span class="crumb-sep">/</span><strong id="breadcrumbCurrent">Descobrir</strong></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar anime, gênero..." autocomplete="off"><kbd>⌘ K</kbd></label>
+        <div class="topbar-actions">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ativar modo escuro" title="Ativar modo escuro" aria-pressed="false">☾</button>
+          <label class="language-picker"><span aria-hidden="true">文</span><select id="languageSelect" aria-label="Choose language"><option value="pt">PT</option><option value="en">EN</option><option value="es">ES</option></select><b>⌄</b></label>
+          <button class="mobile-profile-button" id="mobileProfileButton" type="button" aria-label="Profile" aria-expanded="false"><span id="mobileProfileAvatar">S</span></button>
+        </div>
+      </header>
+
+      <section class="welcome-row">
+        <div><p class="eyebrow" id="welcomeEyebrow">SEU PRÓXIMO UNIVERSO</p><h1 id="pageTitle">Descubra seu próximo anime<span>.</span></h1><p class="welcome-copy" id="pageSubtitle">Explore histórias, encontre novos favoritos e organize sua jornada.</p></div>
+        <div class="catalog-counter"><span class="counter-spark">✦</span><div><strong id="catalogCount">—</strong><small data-i18n="catalogTitles">títulos no catálogo</small></div></div>
+      </section>
+
+      <section class="hero" id="hero">
+        <div class="hero-backdrop" id="heroBackdrop"></div>
+        <div class="hero-content"><span class="featured-label"><span>✦</span> <span data-i18n="catalogFeatured">DESTAQUE DO CATÁLOGO</span></span><h2 id="heroTitle">Carregando...</h2><div class="hero-meta" id="heroMeta"></div><p id="heroSynopsis"></p><div class="hero-actions"><button class="button button-primary" id="heroDetails">Ver anime <span>↗</span></button><button class="button button-quiet" id="heroAdd">＋ Adicionar à lista</button></div></div>
+        <div class="hero-poster-wrap"><img id="heroPoster" alt="Capa do anime em destaque"></div>
+        <div class="hero-pagination"><span class="hero-line"></span><span>01</span><span class="hero-dim"> / 01</span></div>
+      </section>
+
+      <section class="stats-row" id="statsRow" aria-label="Resumo da sua lista">
+        <div class="stat-card"><span class="stat-icon stat-purple">▤</span><div><strong id="statTotal">0</strong><small data-i18n="statInList">na minha lista</small></div></div>
+        <div class="stat-card"><span class="stat-icon stat-blue">▶</span><div><strong id="statWatching">0</strong><small data-i18n="statWatching">assistindo agora</small></div></div>
+        <div class="stat-card"><span class="stat-icon stat-green">✓</span><div><strong id="statCompleted">0</strong><small data-i18n="statCompleted">animes concluídos</small></div></div>
+        <div class="stat-card"><span class="stat-icon stat-orange">◷</span><div><strong id="statEpisodes">0</strong><small data-i18n="statEpisodes">episódios assistidos</small></div></div>
+      </section>
+
+      <section class="catalog-section">
+        <div class="section-heading"><div><p class="eyebrow" id="sectionEyebrow">ESCOLHA SUA PRÓXIMA HISTÓRIA</p><h2 id="sectionTitle">Animes para descobrir</h2></div><div class="section-actions"><div class="result-count" id="resultCount"></div><div class="view-mode" role="group" aria-label="Modo de visualização"><button class="view-mode-button active" type="button" data-display-mode="grid" aria-pressed="true" aria-label="Modo grade" title="Modo grade">▦</button><button class="view-mode-button" type="button" data-display-mode="list" aria-pressed="false" aria-label="Modo lista" title="Modo lista">☷</button></div></div></div>
+        <div class="toolbar" id="discoverToolbar">
+          <div class="filter-group"><label class="select-wrap"><span data-i18n="filterType">Tipo</span><select id="typeFilter"><option value="" data-i18n="filterAll">Todos</option><option value="TV" data-i18n="typeSeries">Série</option><option value="Movie" data-i18n="typeMovie">Filme</option><option value="OVA">OVA</option><option value="ONA">ONA</option><option value="Special" data-i18n="typeSpecial">Especial</option></select><b>⌄</b></label>
+            <label class="select-wrap"><span data-i18n="filterGenre">Gênero</span><select id="genreFilter"><option value="" data-i18n="genreAll">Todos os gêneros</option></select><b>⌄</b></label>
+            <label class="select-wrap year-select"><span data-i18n="filterYear">Ano</span><select id="yearFilter"><option value="" data-i18n="yearAny">Qualquer ano</option></select><b>⌄</b></label></div>
+          <label class="sort-wrap"><span data-i18n="sortLabel">Ordenar:</span><select id="sortBy"><option value="score" data-i18n="sortScore">Mais bem avaliados</option><option value="title" data-i18n="sortTitle">Título A–Z</option><option value="year" data-i18n="sortNewest">Mais recentes</option><option value="year_old" data-i18n="sortOldest">Mais antigos</option></select><b>⌄</b></label>
+        </div>
+        <div class="list-tabs" id="listTabs" hidden>
+          <button class="list-tab active" data-status="all">Todos <span id="tab-all">0</span></button>
+          <button class="list-tab" data-status="watching">Assistindo <span id="tab-watching">0</span></button>
+          <button class="list-tab" data-status="planned">Quero assistir <span id="tab-planned">0</span></button>
+          <button class="list-tab" data-status="completed">Concluídos <span id="tab-completed">0</span></button>
+          <button class="list-tab" data-status="paused">Pausados <span id="tab-paused">0</span></button>
+          <button class="list-tab" data-status="dropped">Abandonados <span id="tab-dropped">0</span></button>
+        </div>
+        <div class="active-filter-row" id="activeFilters" hidden><span id="activeFilterText"></span><button id="clearFilters"><span data-i18n="clearFilters">Limpar filtros</span> <span>×</span></button></div>
+        <div class="loading-state" id="loading"><div class="loader"></div><p data-i18n="loading">Preparando o catálogo...</p></div>
+        <div class="anime-grid" id="animeGrid" aria-live="polite"></div>
+        <div class="pagination" id="pagination"><button class="page-arrow" id="prevBtn" aria-label="Página anterior">←</button><div id="pageNumbers"></div><button class="page-arrow" id="nextBtn" aria-label="Próxima página">→</button></div>
+      </section>
+      <footer class="footer"><span data-i18n="footerText">Feito para organizar suas próximas maratonas</span> <span>✦</span></footer>
+    </main>
+  </div>
+
+  <div class="account-menu" id="accountMenu" hidden>
+    <div class="account-menu-user"><span class="account-menu-avatar" id="menuAvatar">S</span><div><strong id="menuAccountName">@account</strong><small id="menuAccountType">Hive Keychain</small></div></div>
+    <button type="button" data-account-view="my-list"><span>▤</span><span data-i18n="menuMyList">Minha lista</span></button>
+    <button type="button" data-account-view="discover"><span>⌕</span><span data-i18n="menuDiscover">Descobrir animes</span></button>
+    <div class="account-menu-divider"></div>
+    <button type="button" class="account-menu-logout" id="accountLogout"><span>↪</span><span data-i18n="menuLogout">Sair da conta</span></button>
+  </div>
+
+  <div class="modal" id="animeModal" aria-hidden="true"><button class="modal-scrim" data-close-modal aria-label="Fechar detalhes"></button><section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" data-close-modal aria-label="Fechar">×</button><div id="modalBody"></div></section></div>
+  <div class="login-modal" id="loginModal" aria-hidden="true"><button class="modal-scrim" data-close-login aria-label="Close login"></button><section class="login-panel" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><button class="modal-close" data-close-login aria-label="Close">×</button><div class="login-icon">H</div><p class="eyebrow" data-i18n="hiveAccount">HIVE ACCOUNT</p><h2 id="loginTitle" data-i18n="loginTitle">Entrar com Hive Keychain</h2><p class="login-copy" data-i18n="loginText">Informe seu nome de usuário Hive. O Keychain pedirá para assinar uma mensagem de login.</p><form id="loginForm"><label for="hiveUsername" data-i18n="usernameLabel">Usuário Hive</label><div class="username-field"><span>@</span><input id="hiveUsername" name="username" type="text" placeholder="seu-usuario" autocomplete="username" autocapitalize="none" maxlength="16" required></div><p class="login-trust" data-i18n="loginTrust">Sua chave privada permanece no Hive Keychain. Nenhuma transação será publicada.</p><div class="login-actions"><button class="button button-quiet" type="button" id="demoLogin">✦ <span data-i18n="demo">Modo demo</span></button><button class="button button-quiet" type="button" data-close-login data-i18n="cancel">Cancelar</button><button class="button button-primary" type="submit" id="loginSubmit" data-i18n="signIn">Continuar com Keychain</button></div></form></section></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
